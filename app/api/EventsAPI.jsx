@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-const eventsURL = "http://127.0.0.1:8000/api/events/";
+const eventsURL = "https://agile-waters-79208.herokuapp.com/api/events/";
 const eventURL = "https://hsds-e1401.firebaseio.com/events/";
 
 module.exports = {
