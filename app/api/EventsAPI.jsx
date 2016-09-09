@@ -28,7 +28,7 @@ module.exports = {
 
   removeTicket(eventID, typeId) {
     return axios
-      .post(djangAPI + eventID + '/removeticket/' + typeId + '/')
+      .post(djangoAPI + eventID + '/removeticket/' + typeId + '/')
       .then((res) => res.data)
   }
 }
