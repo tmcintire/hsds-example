@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 const eventsURL = "https://agile-waters-79208.herokuapp.com/api/events/";
-const eventURL = "https://hsds-e1401.firebaseio.com/events/";
+const djangoAPI = "https://agile-waters-79208.herokuapp.com/event/";
 
 module.exports = {
 	getEvents: function () {
@@ -22,13 +22,13 @@ module.exports = {
 
   addTicket(eventID, typeId) {
     return axios
-      .post('http://127.0.0.1:8000/event/' + eventID + '/addticket/' + typeId + '/')
+      .post(djangoAPI+ eventID + '/addticket/' + typeId + '/')
       .then((res) => res.data)
   },
-  
+
   removeTicket(eventID, typeId) {
     return axios
-      .post('http://127.0.0.1:8000/event/' + eventID + '/removeticket/' + typeId + '/')
+      .post(djangAPI + eventID + '/removeticket/' + typeId + '/')
       .then((res) => res.data)
   }
 }
