@@ -1,0 +1,22 @@
+.event-box {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 30px;
+  box-shadow: 5px 5px 5px black;
+  transition: 0.3s ease;
+}
+
+.event-box:hover {
+  transform: scale(1.03);
+  transition: 0.3s ease;
+}
+
+.event-box-link {
+  color: black;
+}
+
+.event-box-link:hover {
+  color: black;
+}
