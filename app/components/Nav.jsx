@@ -8,12 +8,12 @@ var Nav = React.createClass({
 			<div className="top-bar">
 				<div className="top-bar-left">
 					<ul className="menu">
-					<li className="menu-text">IT Inventory</li>
+					<li className="menu-text">HSDS</li>
 						<li>
 							<IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Events</IndexLink>
 						</li>
 						<li>
-							<Link to="/computers" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Placeholder</Link>
+							<Link to="/addevent" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Add Event</Link>
 						</li>
 					</ul>
 				</div>

@@ -15,8 +15,9 @@ var Tickets = React.createClass({
       that.setState({
         new_count: data.count,
         total_revenue: data.count * data.price
-      })
+      });
     });
+    this.props.onAddTicket();
   },
   handleRemoveTicket: function(id, event_id) {
   	if (this.state.new_count === 0) {
@@ -27,7 +28,7 @@ var Tickets = React.createClass({
 	      that.setState({
 	        new_count: data.count,
 	        total_revenue: data.count * data.price
-	      })
+	      });
 	    });
 	  }
 	},
