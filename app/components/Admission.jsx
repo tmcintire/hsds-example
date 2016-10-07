@@ -14,7 +14,7 @@ var Admission = React.createClass({
         return Object.keys(tickets).map((ticket) => {
           var ticketInfo = tickets[ticket];
           return (
-              <Tickets key={ticket} typeId={ticket} eventId={eventId} {...ticketInfo}/>
+              <Tickets key={ticket} typeId={ticket} eventId={eventId} updateTicket={this.props.updateTicket} {...ticketInfo}/>
           );
         });
       }

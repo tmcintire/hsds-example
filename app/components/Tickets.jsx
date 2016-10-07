@@ -3,14 +3,9 @@ import {Link, IndexLink} from 'react-router';
 import { connect } from 'react-redux';
 import { changeTicket } from "../actions/eventActions";
 
-@connect((store) => {
-  return {
-    event: store.event
-  };
-})
 export default class Tickets extends React.Component{
-  handleChangeTicket(eventId, typeId, newCount, dispatch) {
-    this.props.dispatch(changeTicket(eventId, typeId, newCount));
+  handleChangeTicket(eventId, typeId, newCount) {
+    this.props.updateTicket(eventId, typeId, newCount);
 	}
   render() {
     var {eventId, typeId, type, count, price} = this.props;

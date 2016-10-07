@@ -3,7 +3,7 @@ const Loading = require('react-loading-animation');
 import { connect } from 'react-redux';
 import {Link, IndexLink} from 'react-router';
 import EventsAPI from 'EventsAPI';
-import { fetchEventDetails, requestEvent } from "../actions/eventActions";
+import { fetchEventDetails, requestEvent, changeTicket } from "../actions/eventActions";
 import Tickets from 'Tickets';
 import AddTicket from 'AddTicket';
 import Incomes from 'income/Incomes';
@@ -11,17 +11,15 @@ import Admission from 'Admission';
 import Expenses from 'expenses/Expenses';
 import Cashbox from 'Cashbox';
 
-@connect((store) => {
-  return {
-    event: store.event
-  };
-})
 export default class EventDetail extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
       loading: true
     };
+  }
+  updateTicket(eventId, typeId, newCount){
+    this.props.dispatch(changeTicket(eventId, typeId, newCount));
   }
   componentDidMount() {
     var {id} = this.props.params;
@@ -44,7 +42,7 @@ export default class EventDetail extends React.Component{
           <div>
             <h1 className="text-center">{name}</h1>
             <Link to={"events/" + id + "/addticket"}>Add Tickets</Link>
-            <Admission tickets={tickets} eventId={id}/>
+            <Admission tickets={tickets} eventId={id} updateTicket={this.updateTicket.bind(this)}/>
           </div>
         )
       }
