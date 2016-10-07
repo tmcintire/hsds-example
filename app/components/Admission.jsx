@@ -19,26 +19,27 @@ var Admission = React.createClass({
         });
       }
     };
-    var ticketsTotal = () => {
-      return Object.keys(tickets).map((ticket) => {
-        var ticketTotal = (tickets[ticket].count * tickets[ticket].price);
-        return ticketTotal;
+    // Make sure there are tickets to list
+    if (tickets !== undefined) {
+      var ticketsTotal = () => {
+        return Object.keys(tickets).map((ticket) => {
+          var ticketTotal = (tickets[ticket].count * tickets[ticket].price);
+          return ticketTotal;
+        });
+      }
+      var ticketsTotal = ticketsTotal().reduce(function(a, b) {
+        return a + b;
+      });
+      var countTotal = () => {
+        return Object.keys(tickets).map((ticket) => {
+          var countTotal = tickets[ticket].count;
+          return countTotal;
+        });
+      }
+      var countTotal = countTotal().reduce(function(a, b) {
+        return a + b;
       });
     }
-    var ticketsTotal = ticketsTotal().reduce(function(a, b) {
-      return a + b;
-    });
-
-    var countTotal = () => {
-      return Object.keys(tickets).map((ticket) => {
-        var countTotal = tickets[ticket].count;
-        return countTotal;
-      });
-    }
-
-    var countTotal = countTotal().reduce(function(a, b) {
-      return a + b;
-    });
 
 
     return (
@@ -57,8 +58,8 @@ var Admission = React.createClass({
           {renderTickets()}
           <tr>
             <td colSpan="4">Total</td>
-            <td>{countTotal}</td>
-            <td>${ticketsTotal}</td>
+            <td>{0 || countTotal}</td>
+            <td>${0 || ticketsTotal}</td>
           </tr>
         </tbody>
       </table>
