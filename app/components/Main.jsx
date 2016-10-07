@@ -11,6 +11,6 @@ var Main = (props) => {
 					</div>
 				</div>
 			);
-		}	
+		}
 
 module.exports = Main;

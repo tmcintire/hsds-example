@@ -1,53 +1,31 @@
 var React = require('react');
 import {Link, IndexLink} from 'react-router';
-import EventsAPI from 'EventsAPI';
+import { connect } from 'react-redux';
+import { changeTicket } from "../actions/eventActions";
 
-var Tickets = React.createClass({
-  getInitialState: function() {
-    return {
-      new_count: this.props.count,
-      total_revenue: this.props.count * this.props.price
-    }
-  },
-  handleAddTicket: function(id, event_id) {
-  	var that = this;
-  	EventsAPI.addTicket(event_id, id).then(function(data) {
-      that.setState({
-        new_count: data.count,
-        total_revenue: data.count * data.price
-      });
-    });
-    this.props.onAddTicket();
-  },
-  handleRemoveTicket: function(id, event_id) {
-  	if (this.state.new_count === 0) {
-  		alert("You cannot go below 0");
-  	} else {
-	  	var that = this;
-	  	EventsAPI.removeTicket(event_id, id).then(function(data) {
-	      that.setState({
-	        new_count: data.count,
-	        total_revenue: data.count * data.price
-	      });
-	    });
-	  }
-	},
-  render: function () {
-    var {type, price, count, id, event_id} = this.props;
-    var {new_count, total_revenue} = this.state;
-    
+@connect((store) => {
+  return {
+    event: store.event
+  };
+})
+export default class Tickets extends React.Component{
+  handleChangeTicket(eventId, typeId, newCount, dispatch) {
+    this.props.dispatch(changeTicket(eventId, typeId, newCount));
+	}
+  render() {
+    var {eventId, typeId, type, count, price} = this.props;
+    var ticketTotal = count * price;
+    var newCountAdd = count + 1;
+    var newCountRemove = count - 1;
     return (
         <tr>
           <td>{type}</td>
           <td>${price}</td>
-          <td><button onClick={() => this.handleAddTicket(id, event_id)} className="button">Add</button></td>
-          <td><button disabled={this.state.new_count === 0} onClick={() => this.handleRemoveTicket(id, event_id)} className="button">Remove</button></td>
-          <td>{new_count}</td>
-          <td>${total_revenue}</td>
-          
+          <td><button onClick={() => this.handleChangeTicket(eventId, typeId, newCountAdd)}className="button">Add</button></td>
+          <td><button disabled={newCountRemove < 0 } onClick={() => this.handleChangeTicket(eventId, typeId, newCountRemove)}className="button">Remove</button></td>
+          <td>{count}</td>
+          <td>${ticketTotal}</td>
         </tr>
     )
   }
-});
-
-module.exports = Tickets;
+}

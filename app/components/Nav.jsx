@@ -13,21 +13,21 @@ var Nav = React.createClass({
 							<IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Events</IndexLink>
 						</li>
 						<li>
-							<Link to="/addevent" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Add Event</Link>
+							<Link to="/new" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Add Event</Link>
 						</li>
 					</ul>
 				</div>
 				<div className="top-bar-right">
 					<form onSubmit={this.onSearch}>
 						<ul className="menu">
-							<li>	
+							<li>
 								Account
 							</li>
 						</ul>
 					</form>
 				</div>
 			</div>
-				
+
 			);
 	}
 });

@@ -1,33 +1,27 @@
 import React from 'react';
 import {Link, IndexLink} from 'react-router';
+import { connect } from 'react-redux';
+import { fetchEvents } from "../actions/eventActions";
 import EventBox from 'EventBox';
 import getEvents from 'EventsAPI';
 
-var EventsList = React.createClass({
-  getInitialState: function() {
-   return {
-      eventsData: [],
-    };
-  },
-  componentDidMount: function() {
-		var that = this;
-		getEvents.getEvents().then(function(data) {
-			that.setState({
-				eventsData: data,
-			});
-		});
+@connect((store) => {
+  return {
+    events: store.events
+  };
+})
+export default class EventsList extends React.Component{
+  componentDidMount() {
+    this.props.dispatch(fetchEvents());
+	}
 
-	},
-
-  render: function() {
-    var {eventsData} = this.state;
-    console.log(eventsData);
+  render() {
+    var {events} = this.props;
     var renderEvents = () => {
-      return eventsData.map((event) => {
-          return (
-            <EventBox key={event.id} {...event}/>
-          )
-      });
+      return Object.keys(events).map((event) => {
+        var eachEvent = events[event];
+        return <EventBox key={event} eventKey={event} {...eachEvent}/>;
+      })
     }
 
     return(
@@ -36,6 +30,4 @@ var EventsList = React.createClass({
       </div>
     )
   }
-});
-
-module.exports = EventsList;
+}

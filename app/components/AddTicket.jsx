@@ -1,49 +1,30 @@
 var React = require('react');
 import {Link, IndexLink} from 'react-router';
-import addTicket from 'EventsAPI';
 import uuid from 'node-uuid';
-import getEventDetails from 'EventsAPI';
+import {connect} from 'react-redux';
+import {addTicket} from "../actions/eventActions";
 
-var AddTicket = React.createClass({
-  getInitialState: function() {
-    return {
-      numTickets: 0,
-    }
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
+@connect((store) => {
+  return {
+    events: store.events
+  };
+})
+export default class AddTicket extends React.Component{
+  handleSubmit(dispatch) {
     var {id} = this.props.params;
-    var that = this;
-    getEventDetails.getEventDetails(id).then(function(data) {
-      var ticketArray = [];
-      for (var ticket in data.tickets) {
-        ticketArray.push(data.tickets[ticket]);
-      }
-      console.log(ticketArray.length);
-      that.setState({
-        numTickets: ticketArray.length
-      })
-    });
-    
     var type = this.refs.ticketType.value;
     var price = this.refs.ticketPrice.value;
-    var count = 0;
-    
-    addTicket.addTicket(id, type, price, count);
-    
-    this.refs.ticketType.value = "";
-    this.refs.ticketPrice.value = "";
-  },
-  render: function () {
-    
+    this.props.dispatch(addTicket(id,type, price));
+    window.location = '#/events/'+ id;
+  }
+  render() {
+
     return (
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" ref="ticketType" placeholder="Ticket type..." />
+        <form>
+          <input type="text" ref="ticketType" placeholder="Ticket description..." autoFocus/>
           <input type="text" ref="ticketPrice" placeholder="Price..." />
-          <button className="button" type="submit">Submit</button>
+          <button className="button" onClick={this.handleSubmit.bind(this)} type="button">Submit</button>
         </form>
     )
   }
-});
-
-module.exports = AddTicket;
+}
