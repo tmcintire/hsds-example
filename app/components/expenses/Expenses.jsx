@@ -1,6 +1,5 @@
 var React = require('react');
 import {Link, IndexLink} from 'react-router';
-import EventsAPI from 'EventsAPI';
 import Expense from '../expenses/Expense';
 
 var Expenses = React.createClass({
@@ -11,19 +10,17 @@ var Expenses = React.createClass({
   },
 
   render: function () {
-    var {expenses, id} = this.props;
+    var {expenses, eventId} = this.props;
     var renderExpenses = () => {
-        if (expenses !== undefined) {
-            for (var i=0; i < expenses.length; i++) {
-            return expenses.map((expense) => {
-              return (
-                  <Expense key={expense.id} {...expense} eventId={id}/>
-              );
-            });
-          }
-        }
+      if (expenses !== undefined) {
+        return Object.keys(expenses).map((expense) => {
+          var expenseInfo = expenses[expense];
+          return (
+              <Expense key={expense} eventId={eventId} expenseId={expense}{...this.props} {...expenseInfo}/>
+          );
+        });
+      }
     };
-
     return (
           <div>
           <h1 className="text-center">Expenses</h1>

@@ -8,6 +8,7 @@ import Main from 'Main';
 import EventsList from 'EventsList';
 import EventDetailContainer from 'EventDetailContainer';
 import AddTicket from 'AddTicket';
+import AddExpense from 'AddExpense';
 import EditIncome from 'income/EditIncome';
 import EditExpense from 'expenses/EditExpense';
 import AddEvent from 'AddEvent';
@@ -26,6 +27,7 @@ ReactDOM.render(
       <Route path="/new" component={AddEvent}/>
       <Route path="events/:id" component={EventDetailContainer}/>
       <Route path="events/:id/addticket" component={AddTicket}/>
+      <Route path="events/:id/addexpense" component={AddExpense}/>
       <Route path="events/:id/editincome/:incomeid" component={EditIncome}/>
       <Route path="events/:id/editexpense/:expenseid" component={EditExpense}/>
     </Route>

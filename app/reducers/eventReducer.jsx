@@ -48,3 +48,20 @@ export var ticketReducer = (state = [], action) => {
       return state;
   }
 }
+
+export var expenseReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'REQUEST_EXPENSE':
+      return {
+        loading: true
+      }
+    case 'RECEIVED_EXPENSE':
+      return {
+        ...state,
+        ...action.payload,
+        loading: false,
+      }
+    default:
+      return state;
+  }
+}

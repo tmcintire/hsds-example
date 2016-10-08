@@ -37,6 +37,29 @@ export function fetchEventDetails(id) {
   }
 }
 
+export function requestExpense() {
+  return {
+    type: 'REQUEST_EXPENSE'
+  }
+}
+
+export function fetchExpenseDetails(eventId, expenseId) {
+  return function(dispatch) {
+    dispatch(requestExpense());
+    var eventsRef = firebaseRef.child("events");
+    var eventRef = eventsRef.child(eventId);
+    var expensesRef = eventRef.child('expenses');
+    var expenseRef = expensesRef.child(expenseId);
+    expenseRef.on("value", snapshot => {
+      var expense = snapshot.val() || {};
+      dispatch({
+        type:"RECEIVED_EXPENSE",
+        payload: expense,
+      })
+    });
+  }
+}
+
 export function newEvent(name, date, time, fee, max_fee, band_minimum, cash) {
   return function(dispatch) {
     var eventsRef = firebaseRef.child("events");
@@ -61,6 +84,22 @@ export function addTicket(id, type, price) {
       type,
       price,
       count: 0
+    })
+  }
+}
+
+export function addExpense(id, type, category, notes, percent, paid, cost) {
+  return function(dispatch) {
+    var eventsRef = firebaseRef.child("events");
+    var eventRef = eventsRef.child(id);
+    var ticketRef = eventRef.child('expenses');
+    ticketRef.push().set({
+      type,
+      category,
+      notes,
+      percent,
+      paid,
+      cost
     })
   }
 }

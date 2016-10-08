@@ -1,6 +1,5 @@
 var React = require('react');
 import {Link, IndexLink} from 'react-router';
-import { connect } from 'react-redux';
 import { changeTicket } from "../actions/eventActions";
 
 export default class Tickets extends React.Component{
@@ -8,7 +7,6 @@ export default class Tickets extends React.Component{
   handleChangeTicket(eventId, typeId, newCount, ticketTotal) {
     this.props.updateTicket(eventId, typeId, newCount, ticketTotal); // ALL ACTIONS MUST HAPPEN AFTER THIS ONE
     setTimeout(() => {
-      console.log('hi');
       this.props.updateTicketTotals(); // function defined in Admission to update event totals after new ticket is submitted
     }, 10);
   }

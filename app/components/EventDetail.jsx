@@ -39,7 +39,7 @@ export default class EventDetail extends React.Component{
       }
       if (loading === false) {
         var event = this.props.event[0];
-        var {name, tickets, totalRevenue, totalCount} = event;
+        var {name, tickets, expenses, totalRevenue, totalCount} = event;
         var {id} = this.props.params;
         return (
           <div>
@@ -53,6 +53,8 @@ export default class EventDetail extends React.Component{
               updateTicket={this.updateTicket.bind(this)}
               updateTotals={this.updateTotals.bind(this)}
               />
+            <Link to={"events/" + id + "/addexpense"}>Add Expense</Link>
+            <Expenses expenses={expenses} eventId={id} {...this.props} />
           </div>
         )
       }
