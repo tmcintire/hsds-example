@@ -1,6 +1,6 @@
-import EventDetail from 'EventDetail.jsx';
+import EventDetail from 'EventDetail';
 import { connect } from 'react-redux';
 
-export const EventDetailContainer = connect(store => ({
+export default connect(store => ({
     event: store.event,
 }))(EventDetail);

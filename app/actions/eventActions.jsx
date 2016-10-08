@@ -65,14 +65,36 @@ export function addTicket(id, type, price) {
   }
 }
 
-export function changeTicket(eventId, typeId, newCount) {
+export function changeTicket(eventId, typeId, newCount, ticketTotal) {
   return function(dispatch) {
     var eventsRef = firebaseRef.child("events");
     var eventRef = eventsRef.child(eventId);
     var ticketsRef = eventRef.child('tickets');
     var ticketRef = ticketsRef.child(typeId);
     ticketRef.update({
-      count: newCount
+      count: newCount,
+      total: ticketTotal
+    })
+    dispatch({
+      type: 'CHANGE_TICKET',
+      count: newCount,
+      total: ticketTotal
+    })
+  }
+}
+
+export function updateEventTotals(eventId, totalRevenue, totalCount) {
+  return function(dispatch) {
+    var eventsRef = firebaseRef.child("events");
+    var eventRef = eventsRef.child(eventId);
+    eventRef.update({
+      totalRevenue,
+      totalCount
+    })
+    dispatch({
+      type: 'UPDATE_TOTALS',
+      totalRevenue,
+      totalCount
     })
   }
 }

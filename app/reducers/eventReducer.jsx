@@ -19,6 +19,12 @@ export var eventReducer = (state = [], action) => {
         ...action.payload,
         loading: false,
       }
+    case 'UPDATE_TOTALS':
+      return {
+        ...state,
+        totalRevenue: action.totalRevenue,
+        totalCount: action.totalCount
+      }
     default:
       return state;
   }
@@ -34,7 +40,9 @@ export var ticketReducer = (state = [], action) => {
       case 'CHANGE_TICKET':
         return {
           ...state,
-          ...action.payload,
+          count: action.count,
+          total: action.total
+
         }
     default:
       return state;
