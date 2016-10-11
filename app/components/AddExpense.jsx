@@ -39,7 +39,6 @@ export default class AddExpense extends React.Component{
       this.refs.type.value = '';
       this.refs.notes.value = '';
       this.refs.percent.value = '';
-      this.refs.paid.checked = false;
       this.refs.cost.value = '';
       this.refs.type.focus()
     }

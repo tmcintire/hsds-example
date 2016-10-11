@@ -38,6 +38,20 @@ export function fetchEventDetails(id) {
   }
 }
 
+export function deleteEvent(eventId) {
+  return function(dispatch) {
+    var eventsRef = firebaseRef.child("events");
+    var eventRef = eventsRef.child(eventId);
+    eventRef.remove()
+    dispatch({
+      type: 'EVENT_REMOVED',
+      id: eventId
+    })
+  }
+}
+
+
+
 export function requestExpense() {
   return {
     type: 'REQUEST_EXPENSE'

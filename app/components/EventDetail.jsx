@@ -50,6 +50,7 @@ export default class EventDetail extends React.Component{
             <Admission
               tickets={event.tickets}
               eventId={eventId}
+              date={event.date}
               totalRevenue={event.totalRevenue}
               totalCount={event.totalCount}
               modifyTicket={this.modifyTicket.bind(this)}

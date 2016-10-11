@@ -1,7 +1,15 @@
 export var eventsReducer = (state = [], action) => {
+  console.log(action);
   switch (action.type) {
     case 'FETCH_EVENTS':
       return {...state, ...action.payload}
+    case 'EVENT_REMOVED':
+      return {
+        events: [
+          ...state.events.slice(0, action.id),
+          ...state.events.slice(action.id + 1)
+        ]
+      }
     default:
       return state;
   }

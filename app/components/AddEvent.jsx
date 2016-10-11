@@ -1,7 +1,10 @@
 var React = require('react');
 import {Link, IndexLink} from 'react-router';
+var DatePicker = require('react-datepicker');
+var moment = require('moment');
 import { connect } from 'react-redux';
 import { newEvent } from "../actions/eventActions";
+
 
 @connect((store) => {
   return {
@@ -9,9 +12,20 @@ import { newEvent } from "../actions/eventActions";
   };
 })
 export default class AddEvent extends React.Component{
+  constructor() {
+    super();
+    this.state = {
+      startDate: moment()
+    }
+  }
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
   handleSubmit(dispatch) {
     var name = this.refs.name.value;
-    var date = this.refs.date.value;
+    var date = this.state.startDate.format('L');
     var time = this.refs.time.value;
     var fee = this.refs.fee.value;
     var max_fee = this.refs.max_fee.value;
@@ -22,12 +36,17 @@ export default class AddEvent extends React.Component{
     window.location = '#/events/';
   }
   render() {
+    console.log(moment().format('L') > this.state.startDate.format('L'));
     var {id, name, date, time} = this.props;
 
     return (
       <form className="custom-form">
         <input type="text" ref="name" placeholder="Event name..."></input>
-        <input type="text" ref="date" placeholder="Date..."></input>
+          <DatePicker
+          ref = "date"
+          selected={this.state.startDate}
+          onChange={this.handleChange.bind(this)}
+          placeholderText="Click to select a date"  />
         <input type="text" ref="time" placeholder="Time..."></input>
         <input type="text" ref="fee" placeholder="Administrative Fee..."></input>
         <input type="text" ref="max_fee" placeholder="Maximum Administrative Fee..."></input>

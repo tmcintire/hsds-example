@@ -1,16 +1,16 @@
 .event-box {
-  display: inline-block;
+  display: block;
+  position: relative;
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px;
   margin: 0 30px;
-  width: 200px;
   box-shadow: 5px 5px 5px black;
   transition: 0.3s ease;
 }
 
 .event-box:hover {
-  transform: scale(1.03);
+  background: rgba(183, 181, 182, 0.1);
   transition: 0.3s ease;
 }
 
@@ -20,4 +20,18 @@
 
 .event-box-link:hover {
   color: black;
+}
+
+.delete-x {
+    position: absolute;
+    top: -15px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid black;
+    text-align: center;
+    background: rgba(205, 16, 16, 1);
+    color: black;
+    cursor: pointer;
 }
