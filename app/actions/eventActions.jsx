@@ -338,7 +338,7 @@ export function updateExpenses(eventId) {
         var venue_mod = newVenueExpense % 1;
         newBandExpense = event.totalRevenue * bandExpense.percent/100 + venue_mod;
 
-        if (event.totalRevenue > 0) {``
+        if (event.totalRevenue > 0) {
             if (event.fee <= 100 && newBandExpense > event.band_minimum) {
               if (bandExpense.percent > 0 && venueExpense.percent > 0) {
                 var temp_cost_venue = event.totalRevenue * parseInt(venueExpense.percent)/100; // Venue cost
@@ -380,33 +380,35 @@ export function updateExpenses(eventId) {
             if (newAdminFee < 0) {
               newAdminFee = 0;
             }
-
-
-          // ***** Set the expenses and event updates in the database and the store
-          expensesRef.child(bandExpenseId).update({
-            cost: newBandExpense,
-          })
-          expensesRef.child(venueExpenseId).update({
-            cost: newVenueExpense,
-          })
-          eventRef.update({
-            fee: newAdminFee,
-          })
-          dispatch({
-            type: 'BAND_EXPENSE_UPDATED',
-            cost: newBandExpense,
-            id: bandExpenseId
-          })
-          dispatch({
-            type: 'VENUE_EXPENSE_UPDATED',
-            cost: newVenueExpense,
-            id: venueExpenseId
-          })
-          dispatch({
-            type: 'UPDATED_EVENT',
-            fee: newAdminFee
-          })
+        } else if (event.totalRevenue === 0) {
+          newBandExpense = 0;
+          newVenueExpense = 0;
         }
+
+        // ***** Set the expenses and event updates in the database and the store
+        expensesRef.child(bandExpenseId).update({
+          cost: newBandExpense,
+        })
+        expensesRef.child(venueExpenseId).update({
+          cost: newVenueExpense,
+        })
+        eventRef.update({
+          fee: newAdminFee,
+        })
+        dispatch({
+          type: 'BAND_EXPENSE_UPDATED',
+          cost: newBandExpense,
+          id: bandExpenseId
+        })
+        dispatch({
+          type: 'VENUE_EXPENSE_UPDATED',
+          cost: newVenueExpense,
+          id: venueExpenseId
+        })
+        dispatch({
+          type: 'UPDATED_EVENT',
+          fee: newAdminFee
+        })
       }
     });
   }

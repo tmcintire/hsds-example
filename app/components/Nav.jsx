@@ -10,10 +10,10 @@ var Nav = React.createClass({
 					<ul className="menu">
 					<li className="menu-text">HSDS</li>
 						<li>
-							<IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Events</IndexLink>
+							<IndexLink to="/" className="link" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Events</IndexLink>
 						</li>
 						<li>
-							<Link to="/new" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Add Event</Link>
+							<Link to="/new" className="link" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Add Event</Link>
 						</li>
 					</ul>
 				</div>

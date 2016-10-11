@@ -2,17 +2,10 @@
   margin: 2% 10%;
 }
 
-.enter-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20%;
-  font-size: 2rem;
-}
 
 .table-styles {
-  box-shadow: 2px 2px 2px black;
-  border: 1px solid black;
+  box-shadow: 4px 4px 4px black;
+  border: 2px solid black;
 }
 
 .custom-form button {
@@ -21,10 +14,31 @@
 
 .top-bar {
   background: rgba(42, 66, 112, 1);
+  padding: 0;
+
+  .menu-text:hover {
+    cursor: default;
+  }
 
   .menu {
     background: rgba(42, 66, 112, 1);
     color: white;
+
+    li:hover:not(.menu-text) {
+      background-color: rgba(69, 91, 138, 1);
+    }
+
+    .link {
+      display: inline;
+      height: 54px;
+      color: white;
+    }
+
+    .link:hover {
+      background-color: rgba(69, 91, 138, 1);
+    }
+
+
   }
 
 
