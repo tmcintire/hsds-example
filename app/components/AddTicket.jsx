@@ -29,9 +29,8 @@ export default class AddTicket extends React.Component{
       this.setState({
         message: 'Ticket Added!'
       });
-      this.refs.ticketType.value = '';
       this.refs.ticketPrice.value = '';
-      this.refs.ticketType.focus()
+      this.refs.ticketType.focus();
     }
   }
 
@@ -46,7 +45,11 @@ export default class AddTicket extends React.Component{
           <Link to={"events/" + id}><button className="button">Back to Event</button></Link>
           <h1 className="text-center">Create New Ticket</h1>
           <form className="custom-form">
-            <input type="text" ref="ticketType" placeholder="Ticket description..." autoFocus/>
+            <select ref="ticketType" autoFocus>
+              <option value="General">General</option>
+              <option value="Student">Student</option>
+              <option value="Military">Military</option>
+            </select>
             <input type="text" ref="ticketPrice" placeholder="Price..." />
             <button className="button" onClick={() => this.handleSubmit(submit)} type="button">Save</button>
             <button className="button" onClick={() => this.handleSubmit(addAnother)} type="button">Save and Add</button>
