@@ -10,7 +10,7 @@ export default class AdminFee extends React.Component{
           <tbody>
             <tr>
               <td colSpan="5">Administrative Fee</td>
-              <td>${this.props.fee}</td>
+              <td className="admin-fee">${this.props.fee}</td>
             </tr>
           </tbody>
         </table>

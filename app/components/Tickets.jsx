@@ -12,8 +12,8 @@ export default class Tickets extends React.Component{
         <tr>
           <td>{this.props.type}</td>
           <td>${this.props.price}</td>
-          <td><button onClick={() => this.handleModifyTicket('add')}className="button success">Add</button></td>
-          <td><button disabled={this.props.count === 0 } onClick={() => this.handleModifyTicket('remove')}className="button alert">Remove</button></td>
+          <td><button onClick={() => this.handleModifyTicket('add')}className="button success large custom-button">Add</button></td>
+          <td><button disabled={this.props.count === 0 } onClick={() => this.handleModifyTicket('remove')}className="button alert large custom-button">Remove</button></td>
           <td>{this.props.count}</td>
           <td>${this.props.price * this.props.count}</td>
         </tr>

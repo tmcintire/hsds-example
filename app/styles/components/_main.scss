@@ -6,6 +6,13 @@
 .table-styles {
   box-shadow: 4px 4px 4px black;
   border: 2px solid black;
+  td {
+    padding: 5px;;
+  }
+  button {
+    margin-top: 0.7 rem;
+    margin-bottom: 0.7rem;
+  }
 }
 
 .custom-form button {
@@ -16,6 +23,10 @@
   background: rgba(42, 66, 112, 1);
   padding: 0;
 
+  .menu-text {
+    color: white;
+    font-size: 2em;
+  }
   .menu-text:hover {
     cursor: default;
   }
@@ -37,13 +48,13 @@
     .link:hover {
       background-color: rgba(69, 91, 138, 1);
     }
-
-
   }
+}
 
+.custom-button {
+  width: 150px;
+}
 
-  .menu-text {
-    color: white;
-    font-size: 2em;
-  }
+.admin-fee {
+  width: 150px;
 }
