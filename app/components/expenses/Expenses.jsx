@@ -1,6 +1,6 @@
 var React = require('react');
 import {Link, IndexLink} from 'react-router';
-import Expense from '../expenses/Expense';
+import ExpenseContainer from '../expenses/ExpenseContainer';
 
 var Expenses = React.createClass({
   getInitialState: function() {
@@ -16,7 +16,7 @@ var Expenses = React.createClass({
         return Object.keys(expenses).map((expense) => {
           var expenseInfo = expenses[expense];
           return (
-              <Expense key={expense} eventId={eventId} expenseId={expense}{...this.props} {...expenseInfo}/>
+              <ExpenseContainer key={expense} eventId={eventId} expenseId={expense}{...this.props} {...expenseInfo}/>
           );
         });
       }
@@ -24,11 +24,11 @@ var Expenses = React.createClass({
     return (
           <div>
           <h1 className="text-center">Expenses</h1>
+          <Link to={"events/" + eventId + "/addexpense"}>Add Expense</Link>
           <table className="table-styles">
             <thead>
             <tr>
                 <th>Type</th>
-                <th>Category</th>
                 <th>Notes</th>
                 <th>Percent</th>
                 <th>Paid</th>

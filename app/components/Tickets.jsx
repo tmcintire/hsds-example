@@ -3,28 +3,19 @@ import {Link, IndexLink} from 'react-router';
 import { changeTicket } from "../actions/eventActions";
 
 export default class Tickets extends React.Component{
-
-  handleChangeTicket(eventId, typeId, newCount, ticketTotal) {
-    this.props.updateTicket(eventId, typeId, newCount, ticketTotal); // ALL ACTIONS MUST HAPPEN AFTER THIS ONE
-    setTimeout(() => {
-      this.props.updateTicketTotals(); // function defined in Admission to update event totals after new ticket is submitted
-    }, 10);
+  handleModifyTicket(edit) {
+    var {eventId, typeId, count, price} = this.props;
+    this.props.modifyTicket(eventId, typeId, count, price, edit);
   }
   render() {
-    var {eventId, typeId, type, count, price} = this.props;
-    var ticketTotal = count * price;
-    var newCountAdd = count + 1;
-    var newCountRemove = count - 1;
-    var ticketTotalAdd = newCountAdd * price;
-    var ticketTotalRemove = newCountRemove * price;
     return (
         <tr>
-          <td>{type}</td>
-          <td>${price}</td>
-          <td><button onClick={() => this.handleChangeTicket(eventId, typeId, newCountAdd, ticketTotalAdd)}className="button">Add</button></td>
-          <td><button disabled={newCountRemove < 0 } onClick={() => this.handleChangeTicket(eventId, typeId, newCountRemove, ticketTotalRemove)}className="button">Remove</button></td>
-          <td>{count}</td>
-          <td>${ticketTotal}</td>
+          <td>{this.props.type}</td>
+          <td>${this.props.price}</td>
+          <td><button onClick={() => this.handleModifyTicket('add')}className="button success">Add</button></td>
+          <td><button disabled={this.props.count === 0 } onClick={() => this.handleModifyTicket('remove')}className="button alert">Remove</button></td>
+          <td>{this.props.count}</td>
+          <td>${this.props.price * this.props.count}</td>
         </tr>
     )
   }

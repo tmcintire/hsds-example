@@ -14,3 +14,22 @@
   box-shadow: 2px 2px 2px black;
   border: 1px solid black;
 }
+
+.custom-form button {
+  margin-right: 20px;
+}
+
+.top-bar {
+  background: rgba(42, 66, 112, 1);
+
+  .menu {
+    background: rgba(42, 66, 112, 1);
+    color: white;
+  }
+
+
+  .menu-text {
+    color: white;
+    font-size: 2em;
+  }
+}

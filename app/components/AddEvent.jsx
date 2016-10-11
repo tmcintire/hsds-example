@@ -16,7 +16,7 @@ export default class AddEvent extends React.Component{
     var fee = this.refs.fee.value;
     var max_fee = this.refs.max_fee.value;
     var band_minimum = this.refs.band_minimum.value;
-    var cash = this.refs.cash.value
+    var cash = parseInt(this.refs.cash.value);
 
     this.props.dispatch(newEvent(name, date, time, fee, max_fee, band_minimum, cash));
     window.location = '#/events/';
@@ -25,7 +25,7 @@ export default class AddEvent extends React.Component{
     var {id, name, date, time} = this.props;
 
     return (
-      <form>
+      <form className="custom-form">
         <input type="text" ref="name" placeholder="Event name..."></input>
         <input type="text" ref="date" placeholder="Date..."></input>
         <input type="text" ref="time" placeholder="Time..."></input>

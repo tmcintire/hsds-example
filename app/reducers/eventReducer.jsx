@@ -25,6 +25,31 @@ export var eventReducer = (state = [], action) => {
         totalRevenue: action.totalRevenue,
         totalCount: action.totalCount
       }
+    case 'UPDATED_EVENT':
+      return {
+        ...state,
+        fee: action.fee
+      }
+      case 'BAND_EXPENSE_UPDATED':
+      case 'VENUE_EXPENSE_UPDATED':
+        return {
+          ...state,
+          [action.id]: {
+            cost: action.cost
+          }
+        }
+      case 'CHECKBOX_UPDATED':
+        return {
+          ...state,
+          paid: action.paid
+        }
+      case 'TOTAL_EXPENSES_CALCULATED':
+        return {
+          ...state,
+          totalExpenses: action.totalExpenses,
+          endingCash: action.endingCash,
+          net: action.net,
+        }
     default:
       return state;
   }
@@ -42,7 +67,12 @@ export var ticketReducer = (state = [], action) => {
           ...state,
           count: action.count,
           total: action.total
-
+        }
+      case 'TICKET_MODIFIED':
+        return {
+          ...state,
+          count: action.count,
+          total: action.total
         }
     default:
       return state;

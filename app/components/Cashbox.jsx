@@ -1,15 +1,7 @@
 var React = require('react');
-import {Link, IndexLink} from 'react-router';
-import EventsAPI from 'EventsAPI';
 
-var Cashbox = React.createClass({
-  getInitialState: function() {
-    return {
-      cash: 0
-    }
-  },
-
-  render: function () {
+export default class Cashbox extends React.Component{
+  render() {
     var {cash, endingCash, net} = this.props;
     return (
           <div>
@@ -34,6 +26,4 @@ var Cashbox = React.createClass({
         </div>
     )
   }
-});
-
-module.exports = Cashbox;
+}
