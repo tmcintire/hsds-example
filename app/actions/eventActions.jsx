@@ -1,8 +1,22 @@
 import firebase, {firebaseRef} from 'app/firebase/';
+var moment = require('moment');
 
 export function fetchEvents() {
   return function(dispatch) {
-    firebaseRef.child("events").on("value", snapshot => {
+    var currentDate = moment().subtract(1, 'days').format('L');
+    firebaseRef.child("events").orderByChild('date').startAt(currentDate).on("value", snapshot => {
+      dispatch({
+        type: 'FETCH_EVENTS',
+        payload: snapshot.val()
+      });
+    });
+  }
+}
+
+export function fetchPastEvents() {
+  return function(dispatch) {
+    var currentDate = moment().subtract(1, 'days').format('L');
+    firebaseRef.child("events").orderByChild('date').endAt(currentDate).on("value", snapshot => {
       dispatch({
         type: 'FETCH_EVENTS',
         payload: snapshot.val()
@@ -24,16 +38,45 @@ export function fetchEventDetails(id) {
       var events = snapshot.val() || {};
       var parsedEvents = [];
 
+
       Object.keys(events).forEach((event) => {
         parsedEvents.push({
           ...events[event]
         });
       });
+      var disabled = parsedEvents[0].date < moment().format('L');
       dispatch({
         type: 'RECEIVED_EVENT',
         payload: parsedEvents,
+        disabled
       })
     });
+
+  }
+}
+
+export function newEvent(name, date, time, fee, max_fee, band_minimum, cash) {
+  return function(dispatch, getState) {
+    var state = getState();
+    var parsedEvents = [];
+    Object.keys(state.events).forEach((event) => {
+      parsedEvents.push({
+        ...state.events[event]
+      });
+    });
+    var id = parsedEvents.length + 1;
+    var eventsRef = firebaseRef.child("events");
+    var pushedPostRef = eventsRef.push({
+      id,
+      name,
+      date,
+      time,
+      fee,
+      max_fee,
+      band_minimum,
+      cash
+    });
+
 
   }
 }
@@ -46,6 +89,33 @@ export function deleteEvent(eventId) {
     dispatch({
       type: 'EVENT_REMOVED',
       id: eventId
+    })
+  }
+}
+
+export function editEventDetails(eventId, name, date, time, fee, max_fee, band_minimum, cash) {
+  return function(dispatch) {
+    dispatch(requestEvent());
+    var eventsRef = firebaseRef.child("events");
+    var eventRef = eventsRef.child(eventId);
+    eventRef.update({
+      name,
+      date,
+      time,
+      fee,
+      max_fee,
+      band_minimum,
+      cash
+    })
+    dispatch({
+      type: 'CHANGE_EVENT',
+      name,
+      date,
+      time,
+      fee,
+      max_fee,
+      band_minimum,
+      cash
     })
   }
 }
@@ -102,17 +172,27 @@ export function editExpenseDetails(eventId, expenseId, expenseType, category, no
   }
 }
 
-export function newEvent(name, date, time, fee, max_fee, band_minimum, cash) {
+export function requestTicket() {
+  return {
+    type: 'REQUEST_TICKET',
+    loading: true
+  }
+}
+
+export function fetchTicketDetails(eventId, ticketId) {
   return function(dispatch) {
+    dispatch(requestTicket());
     var eventsRef = firebaseRef.child("events");
-    eventsRef.push().set({
-      name,
-      date,
-      time,
-      fee,
-      max_fee,
-      band_minimum,
-      cash
+    var eventRef = eventsRef.child(eventId);
+    var ticketsRef = eventRef.child('tickets');
+    var ticketRef = ticketsRef.child(ticketId);
+    ticketRef.on("value", snapshot => {
+      var ticket = snapshot.val() || {};
+      dispatch({
+        type:"RECEIVED_TICKET",
+        payload: ticket,
+        loading: false
+      })
     });
   }
 }

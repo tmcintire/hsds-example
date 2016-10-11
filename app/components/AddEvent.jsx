@@ -36,7 +36,6 @@ export default class AddEvent extends React.Component{
     window.location = '#/events/';
   }
   render() {
-    console.log(moment().format('L') > this.state.startDate.format('L'));
     var {id, name, date, time} = this.props;
 
     return (

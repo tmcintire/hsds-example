@@ -1,14 +1,8 @@
 export var eventsReducer = (state = [], action) => {
-  console.log(action);
   switch (action.type) {
     case 'FETCH_EVENTS':
-      return {...state, ...action.payload}
-    case 'EVENT_REMOVED':
       return {
-        events: [
-          ...state.events.slice(0, action.id),
-          ...state.events.slice(action.id + 1)
-        ]
+        ...action.payload
       }
     default:
       return state;
@@ -26,7 +20,14 @@ export var eventReducer = (state = [], action) => {
         ...state,
         ...action.payload,
         loading: false,
+        disabled: action.disabled
       }
+    case 'CHANGE_EVENT':
+      return {
+        ...state,
+        ...action.payload,
+      }
+
     case 'UPDATE_TOTALS':
       return {
         ...state,
@@ -81,6 +82,16 @@ export var ticketReducer = (state = [], action) => {
           ...state,
           count: action.count,
           total: action.total
+        }
+      case 'REQUEST_TICKET':
+        return {
+          loading: action.loading
+        }
+      case 'RECEIVED_TICKET':
+        return {
+          ...state,
+          ...action.payload,
+          loading: action.loading
         }
     default:
       return state;

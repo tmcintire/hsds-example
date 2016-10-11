@@ -1,15 +1,21 @@
 var React = require('react');
 import {Link, IndexLink} from 'react-router';
+var moment = require('moment');
 import ExpenseContainer from '../expenses/ExpenseContainer';
 
-var Expenses = React.createClass({
-  getInitialState: function() {
-    return {
+export default class Expenses extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
       expenses: this.props.expenses
     }
-  },
-
-  render: function () {
+  }
+  handleClick(e) {
+    if (this.props.disabled === true) {
+        e.preventDefault();
+    }
+  }
+  render() {
     var {expenses, eventId} = this.props;
     var renderExpenses = () => {
       if (expenses !== undefined) {
@@ -24,7 +30,7 @@ var Expenses = React.createClass({
     return (
           <div>
           <h1 className="text-center">Expenses</h1>
-          <Link to={"events/" + eventId + "/addexpense"}>Add Expense</Link>
+          <Link onClick={(e) => this.handleClick(e)} to={"events/" + eventId + "/addexpense"}>Add Expense</Link>
           <table className="table-styles">
             <thead>
             <tr>
@@ -43,6 +49,4 @@ var Expenses = React.createClass({
         </div>
     )
   }
-});
-
-module.exports = Expenses;
+}

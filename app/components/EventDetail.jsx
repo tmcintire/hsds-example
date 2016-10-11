@@ -25,12 +25,24 @@ export default class EventDetail extends React.Component{
   componentDidMount() {
     this.props.dispatch(fetchEventDetails(this.props.params.id))
   }
+  handleClick(e) {
+    if (this.props.event.disabled === true) {
+        e.preventDefault();
+    }
+  }
   render() {
     var renderAdminFee = () => {
       var {fee} = this.props.event[0];
       if (fee > 0) {
         return (
           <AdminFee fee={fee} />
+        )
+      }
+    }
+    var disabledMessage = () => {
+      if (this.props.event.disabled === true) {
+        return (
+          <h5 className="text-center disabled-message">Editing this event is disabled</h5>
         )
       }
     }
@@ -45,12 +57,17 @@ export default class EventDetail extends React.Component{
         var eventId = this.props.params.id;
         return (
           <div>
-            <h1 className="text-center">{event.name}</h1>
-            <Link to={"events/" + eventId + "/addticket"}>Add Tickets</Link>
+            <h1 className="text-center">
+              {event.name}
+              <Link onClick={(e) => this.handleClick(e)}className="edit" to={"events/" + eventId + "/edit"}>
+                Edit Event
+              </Link>
+            </h1>
+            {disabledMessage()}
             <Admission
               tickets={event.tickets}
               eventId={eventId}
-              date={event.date}
+              disabled={this.props.event.disabled}
               totalRevenue={event.totalRevenue}
               totalCount={event.totalCount}
               modifyTicket={this.modifyTicket.bind(this)}
@@ -58,7 +75,7 @@ export default class EventDetail extends React.Component{
               updateTotals={this.updateTotals.bind(this)}
               />
             {renderAdminFee()}
-            <Expenses expenses={event.expenses} eventId={eventId}/>
+            <Expenses expenses={event.expenses} eventId={eventId} disabled={this.props.event.disabled}/>
             <Cashbox cash={event.cash} endingCash={event.endingCash} net={event.net}/>
           </div>
         )
