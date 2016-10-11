@@ -58,7 +58,7 @@ export default class EventDetail extends React.Component{
         return (
           <div>
             <h1 className="text-center">
-              {event.name}
+              {event.name} | {event.date}
               <Link onClick={(e) => this.handleClick(e)}className="edit" to={"events/" + eventId + "/edit"}>
                 Edit Event
               </Link>
