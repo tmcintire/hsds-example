@@ -85,13 +85,13 @@ export var ticketReducer = (state = [], action) => {
         }
       case 'REQUEST_TICKET':
         return {
-          loading: action.loading
+          loading: true
         }
       case 'RECEIVED_TICKET':
         return {
           ...state,
           ...action.payload,
-          loading: action.loading
+          loading: false
         }
     default:
       return state;

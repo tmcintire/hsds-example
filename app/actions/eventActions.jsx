@@ -175,7 +175,6 @@ export function editExpenseDetails(eventId, expenseId, expenseType, category, no
 export function requestTicket() {
   return {
     type: 'REQUEST_TICKET',
-    loading: true
   }
 }
 
@@ -191,7 +190,6 @@ export function fetchTicketDetails(eventId, ticketId) {
       dispatch({
         type:"RECEIVED_TICKET",
         payload: ticket,
-        loading: false
       })
     });
   }
@@ -477,6 +475,7 @@ export function updateExpenses(eventId) {
         } else if (event.totalRevenue === 0) {
           newBandExpense = 0;
           newVenueExpense = 0;
+          newAdminFee = 0;
         }
 
         // ***** Set the expenses and event updates in the database and the store

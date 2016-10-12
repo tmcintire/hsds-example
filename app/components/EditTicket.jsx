@@ -28,10 +28,8 @@ export default class EditTicket extends React.Component{
   }
   render() {
     var renderForm = () => {
-      console.log(this.props.ticket);
-      if (this.props.ticket.loading === true) {
-        console.log(this.props);
-      } else {
+      if (this.props.ticket.loading === false) {
+        console.log(this.props.ticket);
         var {price, type} = this.props.ticket;
         var {id} = this.props.params;
         return (
