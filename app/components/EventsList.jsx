@@ -35,8 +35,8 @@ export default class EventsList extends React.Component{
 
     return(
       <div>
-        <h2>This application is for demonstration purposes only.  The data contained
-            herein is example data only.  </h2>
+        <h3><em>This application is for demonstration purposes only.  The data contained
+            within is example data.</em></h3>
         {renderEvents()}
       </div>
     )
